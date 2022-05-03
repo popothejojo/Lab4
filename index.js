@@ -21,7 +21,7 @@ var db = new sqlite3.Database('./database/cars.db',(err)=>{
 
 //Beginning Message when the user goes to LocalHost
 app.get('/', function(req,res){
-    res.send("<h3> Hi there, You are going to perform CRUD operations...<br></br>[CREATE]http://localhost:3000/add/(Name)/(Year)/(Make)/(Model)' to add a Racer......<br></br>                                                                      [READ] 'http://localhost:3000/view/(Car_ID)' to view a Racer... or  http://localhost:3000/view to view all Racers                                          <br></br>                                                                          [UPDATE] 'http://localhost:3000/update/(Car_ID)/(Name)' to update an racers name.....<br></br>                                                                      [DELETE] 'http://localhost:3000/del/()' to delete a Racer......<h3>");
+    res.send("<h3> Hi there, You are going to perform CRUD operations...<br></br>[CREATE]http://localhost:3000/add/(Name)/(Year)/(Make)/(Model)' to add a Racer......<br></br>                                                                      [READ] 'http://localhost:3000/view/(Car_ID)' to view a Racer... or  http://localhost:3000/view to view all Racers                                          <br></br>                                                                          [UPDATE] 'http://localhost:3000/update/(Car_ID)/(Name)' to update an racers name.....<br></br>                                                                      [DELETE] 'http://localhost:3000/del/(Car_ID)' to delete a Racer......<h3>");
   });
 
 //CREATE
