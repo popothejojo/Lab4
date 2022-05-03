@@ -21,25 +21,25 @@ var db = new sqlite3.Database('./database/cars.db',(err)=>{
 
 //Beginning Message when the user goes to LocalHost
 app.get('/', function(req,res){
-    res.send("<h3> Hi there, You are going to perform CRUD operations...<br></br>[CREATE]http://localhost:3000/add/(Name)/(Year)/(Make)/(Model)' to add a car......[READ] 'http://localhost:3000/view/(Car_ID)' to view a car......<br></br>[UPDATE] 'http://localhost:3000/update/()/()' to update an employee.....<br></br>[DELETE] 'http://localhost:3000/del/()' to delete an employee......<h3>");
+    res.send("<h3> Hi there, You are going to perform CRUD operations...<br></br>[CREATE]http://localhost:3000/add/(Name)/(Year)/(Make)/(Model)' to add a Racer......<br></br>                                                                      [READ] 'http://localhost:3000/view/(Car_ID)' to view a Racer... or  http://localhost:3000/view to view all Racers                                          <br></br>                                                                          [UPDATE] 'http://localhost:3000/update/(Car_ID)/(Name)' to update an racers name.....<br></br>                                                                      [DELETE] 'http://localhost:3000/del/()' to delete a Racer......<h3>");
   });
 
 //CREATE
-app.get('/add/:name/:year/:make/:model', function(req, res){
+app.get('/add/:id/:name/:year/:make/:model', function(req,res){
   db.serialize(()=>{
-    db.each('SELECT * FROM Cars_Details WHERE Car_ID =?', [req.params.id],
-    (error, info) => {
-      if(error){
-        res.write('Oops problem printing!')
-        return console.log("Error printing")
+    db.run('INSERT INTO Cars_Details (Car_ID , Name, Year, Make, Model) VALUES(?,?,?,?,?)', [req.params.id, req.params.name,req.params.year,req.params.make,req.params.model], function(err) {
+      if (err) {
+        return console.log(err.message);
       }
-      res.write(`<p>${(JSON.stringify(info))}</p>`);
+      console.log("New Racer has been added");
+      res.send("New Racer has been added into the database with CAR_ID = "+req.params.id+ " and Name = "+req.params.name);
     });
-  })
-})
 
+  });
 
-//Read ALL
+});
+
+//READ ALL
 app.get('/view', function(req, res){
   db.serialize(()=>{
     db.each('SELECT * FROM Cars_Details',
@@ -66,30 +66,43 @@ app.get('/view/:id', function(req, res){
     });
   })
 })
-  
-  
-  
 
-
-
-
-
-
-
-
-
-/*Closing the Database
-  app.get('/close', function(req,res){
-    db.close((err) => {
-      if (err) {
-        res.send('There is some error in closing the database');
+//UPDATE
+app.get('/update/:id/:name', function(req,res){
+  db.serialize(()=>{
+    db.run('UPDATE Cars_Details SET Name = ? WHERE Car_ID = ?', [req.params.name,req.params.id], function(err){
+      if(err){
+        res.send("Error encountered while updating");
         return console.error(err.message);
       }
-      console.log('Closing the database connection.');
-      res.send('Database connection successfully closed');
+      res.send("Entry updated successfully");
+      console.log("Entry updated successfully");
     });
   });
-*/
+});
+ 
+//DELETE
+app.get('/del/:id', function(req,res){
+  db.serialize(()=>{
+    db.run('DELETE FROM Cars_Details WHERE Car_ID = ?', req.params.id, function(err) {
+      if (err) {
+        res.send("Error encountered while deleting");
+        return console.error(err.message);
+      }
+      res.send("Entry deleted");
+      console.log("Entry deleted");
+    });
+  });
+
+}); 
+
+
+
+
+
+
+
+
 
 server.listen(3000, function(){
   console.log("server is listening on port: 3000");
