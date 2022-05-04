@@ -1,0 +1,23 @@
+{
+  "name": "package",
+  "version": "1.0.0",
+  "description": "Lab 4 CRUD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/popothejojo/Lab4.git"
+  },
+  "author": "Joseph Fitzgerald",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/popothejojo/Lab4/issues"
+  },
+  "homepage": "https://github.com/popothejojo/Lab4#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "sqlite3": "^5.0.6"
+  }
+}
