@@ -17,7 +17,7 @@ You must have these programs installs on your Linux machine, which is the Operat
   
 <h2> Running my project</h2>
 Navigate to the directory of the folder where the project is cloned and run the command
-*node .* or *node index.js*
+"-node ." or "node index.js"
 
 You will be prompted that the server started sucessfully and the database has been connected if everything is installed correctly other you will be noted.
 
